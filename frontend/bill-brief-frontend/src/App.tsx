@@ -8,9 +8,9 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route exact path="/" element={<UploadPDFCard/>}/>
-        <Route exact path="/analysis" element={<AnalysisPage/>}/>
-        <Route exact path="/signin" element={<SignIn/>}/>
+        <Route path="/" element={<UploadPDFCard/>}/>
+        <Route path="/analysis" element={<AnalysisPage/>}/>
+        <Route path="/signin" element={<SignIn/>}/>
       </Routes>
     </Router>
   );

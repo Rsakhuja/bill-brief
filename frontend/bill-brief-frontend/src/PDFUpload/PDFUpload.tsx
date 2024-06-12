@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import { useNavigate } from "react-router";
 
 export default function UploadPDFCard() {
 
@@ -8,24 +9,24 @@ export default function UploadPDFCard() {
     const [fileUploaded, setFileUploaded] = useState(false);
     const [fileName, setFileName] = useState(null);
 
-    const handleDragEnter = (e) => {
+    const handleDragEnter = (e: { preventDefault: () => void; stopPropagation: () => void; }) => {
       e.preventDefault();
       e.stopPropagation();
       setDragging(true);
     };
   
-    const handleDragLeave = (e) => {
+    const handleDragLeave = (e: { preventDefault: () => void; stopPropagation: () => void; }) => {
       e.preventDefault();
       e.stopPropagation();
       setDragging(false);
     };
   
-    const handleDragOver = (e) => {
+    const handleDragOver = (e: { preventDefault: () => void; stopPropagation: () => void; }) => {
       e.preventDefault();
       e.stopPropagation();
     };
 
-    const handleBrowseClick = (e) => {
+    const handleBrowseClick = (e: any) => {
         // Programmatically trigger the file input click
         const fileInput = document.getElementById('fileInput');
         if (fileInput) {
@@ -33,17 +34,17 @@ export default function UploadPDFCard() {
         }
       };
 
-    const handleFileInputChange = (e) => {
+    const handleFileInputChange = (e: { target: { files: any; }; }) => {
         const files = e.target.files;
         console.log(files); // This logs an array of File objects
         setFileUploaded(true);
-        Array.from(files).forEach(file => {
+        Array.from(files).forEach((file: any)=> {
           console.log('Uploaded file:', file.name);
           setFileName(file.name);
         });
       };
   
-    const handleDrop = (e) => {
+    const handleDrop = (e: { preventDefault: () => void; stopPropagation: () => void; dataTransfer: { files: any; }; }) => {
       e.preventDefault();
       e.stopPropagation();
       setDragging(false);
@@ -59,6 +60,14 @@ export default function UploadPDFCard() {
         setFileName(fileName);
       });
     };
+
+    const handleAnalyseBillButtonClick = () => {
+      if (fileUploaded) {
+        navigate('/analysis');
+      }
+    }
+
+    const navigate = useNavigate()
 
     return (
         <div className="flex items-center justify-center min-h-screen bg-[#f8f9fa]">
@@ -94,7 +103,9 @@ export default function UploadPDFCard() {
                 </div>
                 <button       
                 className={`py-2 px-4 rounded-[8px] ${fileUploaded ? 'bg-[#92de95] hover:bg-[#89c98b] cursor-pointer' : 'bg-[#adb5bd] opacity-40 cursor-not-allowed'}`}
-                disabled={!fileUploaded}>
+                disabled={!fileUploaded}
+                onClick={handleAnalyseBillButtonClick}
+                >
                     Analyse Bill</button>
                 <div className="flex items-center">
                     <i className="fas fa-list text-[#6c757d] mr-2"></i>

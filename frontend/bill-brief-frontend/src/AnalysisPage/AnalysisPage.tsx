@@ -1,6 +1,5 @@
 import React from "react";
 
-
 const OpenAIResponse = {
     "paper_title": "Paper Title",
     "summary" : "Cardiomyocytes, the cells responsible for the contraction of the heart, are central to the understanding of various heart conditions. Zamecznik (2014) highlights the case of a 14-year-old boy with restrictive cardiomyopathy, a rare form of the disease characterized by diastolic dysfunction. This case underscores the importance of early diagnosis and treatment, as the condition can be fatal. Emanuel (1972) discusses the association of cardiomyopathy with heredofamilial neuromyopathic disorders, such as Friedreich's disease. Yanjari (2018) provides a comprehensive overview of the symptoms and clinical features of cardiomyopathy in adults, emphasizing the need for early recognition and management. Ижкина (2012) categorizes nonischemic cardiomyopathy into four main types, including dilated, hypertrophic, restrictive, and arrhythmogenic right ventricular, and underscores the high mortality rates in pediatric cases. These studies collectively underscore the importance of understanding and addressing cardiomyocyte-related conditions.",

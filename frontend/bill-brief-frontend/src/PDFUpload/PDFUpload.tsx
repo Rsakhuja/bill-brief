@@ -61,13 +61,15 @@ export default function UploadPDFCard() {
       });
     };
 
+    const navigate = useNavigate()
+
     const handleAnalyseBillButtonClick = () => {
       if (fileUploaded) {
         navigate('/analysis');
       }
     }
 
-    const navigate = useNavigate()
+    
 
     return (
         <div className="flex items-center justify-center min-h-screen bg-[#f8f9fa]">

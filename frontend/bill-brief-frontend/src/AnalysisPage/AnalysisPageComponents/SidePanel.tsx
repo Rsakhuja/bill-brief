@@ -19,21 +19,9 @@ export default function SidePanel({ paper_title }: SidePanelProps) {
             <div className="absolute bottom-0 p-4 w-full">
             <div className="flex items-center mb-4">
                 <div className="bg-[#e9ecef] rounded-full w-8 h-8 flex items-center justify-center mr-2">
-                <i className="fas fa-question text-[#6c757d]"></i>
-                </div>
-                <span className="text-[#6c757d] text-sm">Help and guides</span>
-            </div>
-            <div className="flex items-center mb-4">
-                <div className="bg-[#e9ecef] rounded-full w-8 h-8 flex items-center justify-center mr-2">
-                <i className="fas fa-envelope text-[#6c757d]"></i>
-                </div>
-                <span className="text-[#6c757d] text-sm">Contact Us</span>
-            </div>
-            <div className="flex items-center mb-4">
-                <div className="bg-[#e9ecef] rounded-full w-8 h-8 flex items-center justify-center mr-2">
                 <i className="fas fa-user text-[#6c757d]"></i>
                 </div>
-                <span className="text-[#6c757d] text-sm">parthitm...@gmail.com</span>
+                <span className="text-[#6c757d] text-sm">parthitpatel@gmail.com</span>
             </div>
             </div>
       </div>

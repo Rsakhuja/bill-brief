@@ -24,7 +24,10 @@ def mock_response():
         'message': 'This is a mock response after 5 seconds',
         'status': 'success'
     }
-    return jsonify(mock_data)
+    response = jsonify(mock_data)
+    response.headers.add('Access-Control-Allow-Origin', 'http://localhost:3000')
+    response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
+    return response
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router";
 
 export default function UploadPDFCard() {
 
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     
     const [dragging, setDragging] = useState(false);
     const [fileUploaded, setFileUploaded] = useState(false);
@@ -63,12 +63,41 @@ export default function UploadPDFCard() {
 
     const navigate = useNavigate()
 
-    const handleAnalyseBillButtonClick = () => {
+    const handleAnalyseBillButtonClick = async () => {
       if (fileUploaded) {
-        navigate('/analysis');
+        setLoading(true);
+          try {
+              const response = await fetch('http://127.0.0.1:5000/mock-response', {
+                  method: 'POST',
+                  headers: {
+                      'Content-Type': 'application/json'
+                  }
+              });
+              if (!response.ok) {
+                  throw new Error('Network response was not ok');
+              }
+              const data = await response.json();
+              console.log(data);
+              navigate('/analysis');
+          } catch (error) {
+              console.error('There was a problem with the fetch operation:', error);
+          } finally {
+            setLoading(false);
+          }
       }
-    }
+  };
 
+  
+  if (loading) {
+    return         <div className="flex items-center justify-center min-h-screen bg-[#f8f9fa]">
+                <div
+    className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+    role="status">
+    <span
+      className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]"
+    >Loading...</span>
+  </div></div>
+  }
     
 
     return (

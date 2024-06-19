@@ -28,7 +28,7 @@ def process_file(file):
     file.save(file_path)
 
     # Add your file processing logic here
-    llm_response = rag.analyze()
+    llm_response = rag.analyze(file_name)
     print(llm_response)
     return llm_response
 

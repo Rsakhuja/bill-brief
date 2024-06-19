@@ -3,3 +3,4 @@ backend/bill-brief-env
 backend/starter
 .DS_Store
 backend/.DS_Store
+backend/storage/*

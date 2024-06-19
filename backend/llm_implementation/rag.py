@@ -2,11 +2,11 @@ from dotenv import load_dotenv
 from llama_index.core import VectorStoreIndex, SimpleDirectoryReader, StorageContext, load_index_from_storage
 import os.path
 
-def analyze():
+def analyze(file_name):
     load_dotenv()
 
     # check if storage already exists
-    PERSIST_DIR = "./storage"
+    PERSIST_DIR = f"./storage/{file_name}"
     if not os.path.exists(PERSIST_DIR):
         documents = SimpleDirectoryReader("llm_implementation/data").load_data()
         index = VectorStoreIndex.from_documents(documents)

@@ -33,7 +33,7 @@ export default function AnalysisPage() {
     <div className="flex">
       {/* <SidePanel paper_title={response.paper_title} /> */}
       <div className="flex-1 p-8">
-      <SummarySection />
+      <SummarySection summary_text={response.summary} />
       <BillTable response={response} />
       </div>
     </div>

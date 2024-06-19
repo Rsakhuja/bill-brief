@@ -36,10 +36,13 @@ def mock_response():
     
     if file:
         file_name = process_file(file)
-        time.sleep(5)  # Simulate processing time
+        time.sleep(2)  # Simulate processing time
         mock_data = {
-            'message': f'File {file_name} processed successfully',
-            'status': 'success'
+            'paper_title': str(file_name),
+            'summary': f'File {file_name} processed successfully. This is its summary',
+            'main_findings': 'success',
+            'benefits': "There are some benefits for the people",
+            'concerns': 'This is what is concerning in the bill you uploaded'
         }
         response = jsonify(mock_data)
         return response

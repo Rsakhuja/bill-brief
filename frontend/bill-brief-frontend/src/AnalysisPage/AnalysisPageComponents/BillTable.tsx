@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function BillTable({mock_response}: any) {
+export default function BillTable({response}: any) {
     return (
         <><div className="flex justify-between items-center mt-4">
             <div className="bg-[#308a22] text-white py-2 px-4 rounded-md">Bill addresses your needs</div>
@@ -23,12 +23,12 @@ export default function BillTable({mock_response}: any) {
                         <tr className="border-t-[1px] border-[#e0e0e0]">
                             <td className="text-left content-start text-[#343a40] text-sm py-2 px-4">
                                 <input type="checkbox" className="mr-2" />
-                                <span>{mock_response.paper_title}</span>
-                                <div className="text-[#6c757d] text-xs">{mock_response.paper_title}</div>
+                                <span>{response.paper_title}</span>
+                                <div className="text-[#6c757d] text-xs">{response.paper_title}</div>
                             </td>
-                            <td className="text-left content-start text-[#343a40] text-sm py-2 px-4">{mock_response.main_findings}</td>
-                            <td className="text-left content-start text-[#343a40] text-sm py-2 px-4">{mock_response.benefits}</td>
-                            <td className="text-left content-start text-[#343a40] text-sm py-2 px-4">{mock_response.concerns}</td>
+                            <td className="text-left content-start text-[#343a40] text-sm py-2 px-4">{response.main_findings}</td>
+                            <td className="text-left content-start text-[#343a40] text-sm py-2 px-4">{response.benefits}</td>
+                            <td className="text-left content-start text-[#343a40] text-sm py-2 px-4">{response.concerns}</td>
                         </tr>
                     </tbody>
                 </table>

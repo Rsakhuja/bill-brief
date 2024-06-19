@@ -81,8 +81,8 @@ export default function UploadPDFCard() {
                   throw new Error('Network response was not ok');
               }
               const data = await response.json();
-              console.log(data);
-              navigate('/analysis');
+              console.log("This is the response that was returned", data);
+              navigate('/analysis', { state: { data } });
           } catch (error) {
               console.error('There was a problem with the fetch operation:', error);
           } finally {

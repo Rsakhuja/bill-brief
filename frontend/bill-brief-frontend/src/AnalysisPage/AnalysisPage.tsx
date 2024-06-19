@@ -2,15 +2,15 @@ import React from "react";
 import SidePanel from "./AnalysisPageComponents/SidePanel";
 import SummarySection from "./AnalysisPageComponents/SummarySection";
 import BillTable from "./AnalysisPageComponents/BillTable";
+import { useLocation } from "react-router";
+
 
 type llm_response = {
   paper_title: string,
   summary: string,
   main_findings: string,
   benefits: string,
-  concerns: string,
-  amendments: string,
-  outcome_for_people: string
+  concerns: string
 }
 
 const mock_response : llm_response = {
@@ -19,17 +19,22 @@ const mock_response : llm_response = {
     "main_findings": "Restrictive cardiomyopathy (RCM) is a rare type of cardiomyopathy, constituting only 2-5% of all cases. Pharmacotherapy helped stabilize the patient's condition, leading to a heart transplantation six months after diagnosis.",
     "benefits": "Restrictive cardiomyopathy (RCM) is a rare type of cardiomyopathy, constituting only 2-5% of all cases. Pharmacotherapy helped stabilize the patient's condition, leading to a heart transplantation six months after diagnosis.",
     "concerns": "Restrictive cardiomyopathy (RCM) is a rare type of cardiomyopathy, constituting only 2-5% of all cases. Pharmacotherapy helped stabilize the patient's condition, leading to a heart transplantation six months after diagnosis.",
-    "amendments": "Restrictive cardiomyopathy (RCM) is a rare type of cardiomyopathy, constituting only 2-5% of all cases. Pharmacotherapy helped stabilize the patient's condition, leading to a heart transplantation six months after diagnosis.",
-    "outcome_for_people": "Restrictive cardiomyopathy (RCM) is a rare type of cardiomyopathy, constituting only 2-5% of all cases. Pharmacotherapy helped stabilize the patient's condition, leading to a heart transplantation six months after diagnosis."
 }
+
 export default function AnalysisPage() {
+
+  const location = useLocation();
+  const response = location.state?.data;
+
+  console.log("Recieved a response from the other page", response)
+
     return (
   <div className="bg-[#f8f9fa] h-screen">
     <div className="flex">
-      <SidePanel paper_title={mock_response.paper_title} />
+      <SidePanel paper_title={response.paper_title} />
       <div className="flex-1 p-8">
       <SummarySection />
-      <BillTable mock_response={mock_response} />
+      <BillTable response={response} />
       </div>
     </div>
   </div>

@@ -1,6 +1,9 @@
 import React from "react";
 
 export default function BillTable({response}: any) {
+
+
+    console.log('BILL PAGE', response);
     return (
         <><div className="flex justify-between items-center mt-4">
             <div className="bg-[#308a22] text-white py-2 px-4 rounded-md">Bill addresses your needs</div>
@@ -12,7 +15,7 @@ export default function BillTable({response}: any) {
                     <thead>
                         <tr className="bg-[#f8f9fa]">
                             <th className="text-left text-[#6c757d] text-sm py-2 px-4">Paper</th>
-                            <th className="text-left text-[#6c757d] text-sm py-2 px-4">Main findings</th>
+                            <th className="text-left text-[#6c757d] text-sm py-2 px-4">Summary</th>
                             <th className="text-left text-[#6c757d] text-sm py-2 px-4">Benefits</th>
                             <th className="text-left text-[#6c757d] text-sm py-2 px-4">Concerns</th>
 
@@ -24,11 +27,11 @@ export default function BillTable({response}: any) {
                             <td className="text-left content-start text-[#343a40] text-sm py-2 px-4">
                                 <input type="checkbox" className="mr-2" />
                                 <span>{response.paper_title}</span>
-                                <div className="text-[#6c757d] text-xs">{response.paper_title}</div>
+                                <div className="text-[#6c757d] text-xs">The Title of the Paper</div>
                             </td>
-                            <td className="text-left content-start text-[#343a40] text-sm py-2 px-4">{response.main_findings}</td>
+                            <td className="text-left content-start text-[#343a40] text-sm py-2 px-4">{response.summary}</td>
                             <td className="text-left content-start text-[#343a40] text-sm py-2 px-4">{response.benefits}</td>
-                            <td className="text-left content-start text-[#343a40] text-sm py-2 px-4">{response.concerns}</td>
+                            <td className="text-left content-start text-[#343a40] text-sm py-2 px-4">{response.main_concerns}</td>
                         </tr>
                     </tbody>
                 </table>

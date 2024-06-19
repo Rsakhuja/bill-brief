@@ -73,7 +73,7 @@ export default function UploadPDFCard() {
         formData.append("file", selectedFile);
 
           try {
-              const response = await fetch('http://127.0.0.1:5000/mock-response', {
+              const response = await fetch('http://127.0.0.1:5000/analysis', {
                   method: 'POST',
                   body: formData
               });

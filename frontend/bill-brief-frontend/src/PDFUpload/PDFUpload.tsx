@@ -8,6 +8,7 @@ export default function UploadPDFCard() {
     const [dragging, setDragging] = useState(false);
     const [fileUploaded, setFileUploaded] = useState(false);
     const [fileName, setFileName] = useState(null);
+    const [selectedFile, setSelectedFile] = useState(null);
 
     const handleDragEnter = (e: { preventDefault: () => void; stopPropagation: () => void; }) => {
       e.preventDefault();
@@ -42,6 +43,7 @@ export default function UploadPDFCard() {
           console.log('Uploaded file:', file.name);
           setFileName(file.name);
         });
+        setSelectedFile(files[0]);
       };
   
     const handleDrop = (e: { preventDefault: () => void; stopPropagation: () => void; dataTransfer: { files: any; }; }) => {
@@ -59,19 +61,21 @@ export default function UploadPDFCard() {
         setFileUploaded(true);
         setFileName(fileName);
       });
+      setSelectedFile(files[0]);
     };
 
     const navigate = useNavigate()
 
     const handleAnalyseBillButtonClick = async () => {
-      if (fileUploaded) {
+      if (fileUploaded && selectedFile) {
         setLoading(true);
+        const formData = new FormData();
+        formData.append("file", selectedFile);
+
           try {
               const response = await fetch('http://127.0.0.1:5000/mock-response', {
                   method: 'POST',
-                  headers: {
-                      'Content-Type': 'application/json'
-                  }
+                  body: formData
               });
               if (!response.ok) {
                   throw new Error('Network response was not ok');

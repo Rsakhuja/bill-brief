@@ -11,7 +11,7 @@ class BillAnalysis(BaseModel):
 bill_json_parser = JsonOutputParser(pydantic_object=BillAnalysis)
 
 bill_analysis_prompt_template = PromptTemplate(
-    template="Answer the query. \n{format_instructions}\n{query}\n",
+    template="Answer the query \n{query} \n\n These are the format instruction \n\n {format_instructions} \n",
     input_variables=["query"],
     partial_variables={"format_instructions": bill_json_parser.get_format_instructions()}
 )

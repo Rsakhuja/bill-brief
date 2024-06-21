@@ -75,7 +75,8 @@ export default function UploadPDFCard() {
           try {
               const response = await fetch('http://127.0.0.1:5000/analysis', {
                   method: 'POST',
-                  body: formData
+                  body: formData,
+                  mode: 'cors',
               });
               if (!response.ok) {
                   throw new Error('Network response was not ok');

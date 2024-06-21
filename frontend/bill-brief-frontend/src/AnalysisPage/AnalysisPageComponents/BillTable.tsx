@@ -31,7 +31,7 @@ export default function BillTable({response}: any) {
                             </td>
                             <td className="text-left content-start text-[#343a40] text-sm py-2 px-4">{response.summary}</td>
                             <td className="text-left content-start text-[#343a40] text-sm py-2 px-4">{response.benefits}</td>
-                            <td className="text-left content-start text-[#343a40] text-sm py-2 px-4">{response.main_concerns}</td>
+                            <td className="text-left content-start text-[#343a40] text-sm py-2 px-4">{response.concerns}</td>
                         </tr>
                     </tbody>
                 </table>

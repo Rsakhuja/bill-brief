@@ -1,26 +1,17 @@
 from dotenv import load_dotenv
-from llama_index.core import VectorStoreIndex, SimpleDirectoryReader, StorageContext, load_index_from_storage
+from llama_index.core import GPTVectorStoreIndex, SimpleDirectoryReader, StorageContext, load_index_from_storage
 import os.path
 from llm_implementation import prompt
 
 rag_models = {}
 
+persist_dir = "llm_implementation/storage"
+
 def create_rag_model(file_name):
-    if file_name in rag_models:
-        print("DOES RAG ALREADY EXISTS?")
-        return rag_models[file_name]
+    documents = SimpleDirectoryReader(input_files=["llm_implementation/data/" + file_name]).load_data()
+    index = GPTVectorStoreIndex.from_documents(documents)
+    index.storage_context.persist(persist_dir=persist_dir)
     
-    PERSIST_DIR = f"./storage/{file_name}"
-    if not os.path.exists(PERSIST_DIR):
-        documents = SimpleDirectoryReader("llm_implementation/data").load_data()
-        index = VectorStoreIndex.from_documents(documents)
-        index.storage_context.persist(persist_dir=PERSIST_DIR)
-    else:
-        storage_context = StorageContext.from_defaults(persist_dir=PERSIST_DIR)
-        index = load_index_from_storage(storage_context)
-    rag_models[file_name] = index
-    print("**** RAG MODELS *****")
-    print(rag_models)
     return index
             
 def analyze(file_name):

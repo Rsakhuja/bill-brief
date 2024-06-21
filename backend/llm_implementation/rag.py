@@ -18,7 +18,7 @@ def create_new_rag_model(file_name):
         os.makedirs(persist_dir)
     index.storage_context.persist(persist_dir=persist_dir)
     
-    return "Successfully Created Index"
+    return "RAG Index successfully created"
             
 def analyze(file_name):
     load_dotenv()

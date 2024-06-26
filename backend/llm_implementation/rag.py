@@ -1,7 +1,10 @@
 from dotenv import load_dotenv
-from llama_index.core import GPTVectorStoreIndex, SimpleDirectoryReader, StorageContext, load_index_from_storage
+from llama_index.core import get_response_synthesizer, GPTVectorStoreIndex, SimpleDirectoryReader, StorageContext, load_index_from_storage
+from llama_index.core.retrievers import VectorIndexRetriever
+from llama_index.core.query_engine import RetrieverQueryEngine
 import os.path
-from llm_implementation import prompt
+from llm_implementation.prompt import rag_prompt_dict
+import time
 
 rag_models = {}
 
@@ -26,18 +29,43 @@ def analyze(file_name):
 
     storage_context = StorageContext.from_defaults(persist_dir=INDEX_DIRECTORY)
     index = load_index_from_storage(storage_context)
-    query_engine = index.as_query_engine()
 
-    index_query = "You will be given a Congressional Bill. Analyse the Bill and give me the summary, concerns and benefits."
-    print("THIS IS THE PROMPT :::", prompt.bill_analysis_prompt_template.format(query=index_query))
-    index_prompt = prompt.bill_analysis_prompt_template.format(query=index_query)
+    retriever = VectorIndexRetriever(index=index,similarity_top_k=3,)
+    response_synthesizer = get_response_synthesizer(response_mode="tree_summarize",)
 
-    response = query_engine.query(index_prompt)
-    print("\n\n QUERY RESPONSE FROM THE LLM  :::", response)
-    print("THIS IS THE TYPE OF THE RESPONSE", type(response))
+    query_engine = RetrieverQueryEngine(
+            retriever=retriever,
+            response_synthesizer=response_synthesizer,
+        )
 
-    response = str(response)
 
-    print("THIS IS THE TYPE OF THE RESPONSE", type(response))
 
-    return response
+    json_dict = {"paper_title":file_name}
+
+    for key, prompt in rag_prompt_dict.items():
+        response = query_engine.query(prompt)
+        print(f"\n\n QUERY RESPONSE FROM THE LLM for {key} and {prompt}  ::: {response}")
+        response = str(response)
+        json_dict[key] = response
+        time.sleep(1)
+
+    # THIS BECAME IRRELEVANT AS RELIED ON ONE CHUNK TO ANSWER ALL QUESTIONS
+
+    # index_query = "You will be given a Congressional Bill. Analyse the Bill and give me the summary, concerns and benefits."
+    # print("THIS IS THE PROMPT :::", prompt.bill_analysis_prompt_template.format(query=index_query))
+    # index_prompt = prompt.bill_analysis_prompt_template.format(query=index_query)
+
+    # response = query_engine.query(index_prompt)
+    # print("\n\n QUERY RESPONSE FROM THE LLM  :::", response)
+    # print("THIS IS THE TYPE OF THE RESPONSE", type(response))
+
+    # response = str(response)
+
+    # print("THIS IS THE TYPE OF THE RESPONSE", type(response))
+
+    # return response
+
+
+    print(f"\n\nThis is the JSON DICT :::: {json_dict}\n\n")
+
+    return json_dict

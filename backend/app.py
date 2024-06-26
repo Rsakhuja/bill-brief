@@ -45,9 +45,9 @@ def analysis():
     
     if file:
         llm_response = process_file(file)
+        print("\n\nThis is the type of LLM Response", type(llm_response))
         try:
-            json_object = json.loads(llm_response)
-            json_object['paper_title'] = file.filename
+            json_object = json.dumps(llm_response)
             return json_object
         except ValueError:
             return jsonify({'error': 'Could not process PDF'}), 400

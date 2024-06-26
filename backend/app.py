@@ -4,6 +4,7 @@ import time
 import os
 from llm_implementation import rag
 import json
+from twitter_post import x
 
 app = Flask(__name__)
 CORS(app, origins='http://localhost:3000')
@@ -46,6 +47,7 @@ def analysis():
     if file:
         llm_response = process_file(file)
         print("\n\nThis is the type of LLM Response", type(llm_response))
+        x.post_to_twitter(file_name=file.filename, summary=llm_response['summary'])
         try:
             json_object = json.dumps(llm_response)
             return json_object

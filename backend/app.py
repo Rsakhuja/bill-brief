@@ -10,7 +10,7 @@ CORS(app, origins='http://localhost:3000')
 
 def process_file(file):
     # Function to process the file
-    file_name = file.filename
+    file_name = file.name
     print(f"\n Processing file: {file_name} \n")
     pdf_storage_directory = f"llm_implementation/data/{file_name}" # This where the PDF should be 
     

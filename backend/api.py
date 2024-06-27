@@ -3,9 +3,9 @@ from dotenv import load_dotenv
 import os
 from datetime import datetime, timedelta
 import pytz
-from llm_implementation.rag import analyze
 from apscheduler.schedulers.background import BackgroundScheduler
 from flask import Flask
+from app import process_file
 
 app = Flask(__name__)
 
@@ -16,6 +16,8 @@ def fetch_latest_bills():
     congress_number = os.getenv("CURRENT_CONGRESS_NUMBER")
 
     api_key = os.getenv("CONGRESS_API_KEY")
+
+    ## For all bills within a certain timeframe
     api_url = base_url + "/" + congress_number + "?"
 
     if not api_key:
@@ -29,25 +31,24 @@ def fetch_latest_bills():
 
     params = {
         'api_key': api_key,
-        'fromDateTime': fromDateTime,
-        'toDateTime': toDateTime,
+        'fromDateTime': "2024-06-27T11:43:17Z",
+        'toDateTime': "2024-06-27T12:43:17Z",
         'sort': 'updateDate+asc',
     }
 
     response = requests.get(api_url, params=params)
 
     if response.status_code == 200:
+        print("**** RECEIVED RESPONSE *****")
         data = response.json()
-
+        print(data)
         if "bills" not in data:
             return 
-        
-        test = data["bills"][0]["url"]
-        
+                
         for bill in data["bills"]:
             title = bill["number"]
-
-            base, _ = test.split("?")
+            print("RECEIVED BILL:::: " + bill["title"])
+            base, _ = bill["url"].split("?")
             new_url = base + "/text" 
             
             bill_content_params = {
@@ -59,23 +60,22 @@ def fetch_latest_bills():
             if content_resp.status_code == 200:
                 data = content_resp.json()
                 url = data["textVersions"][0]["formats"][1]["url"]
-
                 resp = requests.get(url)
-                
-                os.mkdir("llm_implementation/data/" + title)
-                file = open("llm_implementation/data/" + title + "/" + title + ".pdf", "wb")
+                        
+                file = open("llm_implementation/data/" + title + ".pdf", "wb")
                 file.write(resp.content)
                 file.close()
 
-                # rag.analyze("llm_implementation/data/test/test.pdf")            
+                process_file(file.raw)
 
     else:
         print(f"Failed to fetch data: {response.status_code}")
 
 
-scheduler = BackgroundScheduler()
-scheduler.add_job(fetch_latest_bills, 'interval', hours=1)
-scheduler.start()
+fetch_latest_bills()
+# scheduler = BackgroundScheduler()
+# scheduler.add_job(fetch_latest_bills, 'interval', hours=1)
+# scheduler.start()
 
-if __name__ == '__main__':
-    app.run()
+# if __name__ == '__main__':
+#     app.run()

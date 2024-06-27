@@ -15,7 +15,7 @@ def create_new_rag_model(file_name):
     print(f":::THIS IS DOCUMENTS::: {documents}")
     index = GPTVectorStoreIndex.from_documents(documents)
     persist_dir = f"llm_implementation/rag-indexes/{file_name}/"
-
+    print(persist_dir)
     if not os.path.exists(persist_dir):
         print(f"\n::: CREATING RAG INDEX FOR {file_name} in the DIR {persist_dir} ::: \n")
         os.makedirs(persist_dir)
@@ -26,7 +26,6 @@ def create_new_rag_model(file_name):
 def analyze(file_name):
     load_dotenv()
     INDEX_DIRECTORY = f"llm_implementation/rag-indexes/{file_name}/"
-
     storage_context = StorageContext.from_defaults(persist_dir=INDEX_DIRECTORY)
     index = load_index_from_storage(storage_context)
 

@@ -9,7 +9,11 @@ import time
 
 
 def create_new_rag_model(file_name):
-
+    """
+        Loads the pdf from llm_implementation/data/{file_name}/{file_name}.pdf
+        Requires that the pdf exist in this location
+        Creates a RAG and stores it in the llm_implementation/rag-indexes/{file_name}/ directory
+    """
     documents = SimpleDirectoryReader(f"llm_implementation/data/{file_name}/").load_data()
     index = GPTVectorStoreIndex.from_documents(documents)
     persist_dir = f"llm_implementation/rag-indexes/{file_name}/"
@@ -23,6 +27,10 @@ def create_new_rag_model(file_name):
 
 
 def analyze_from_rag(file_name):
+    """
+        Loads the RAG index from the llm_implementation/rag-indexes/{file_name}/ direcotry.
+        Requires the RAG indexes to have already been created
+    """
     load_dotenv()
     INDEX_DIRECTORY = f"llm_implementation/rag-indexes/{file_name}/"
 

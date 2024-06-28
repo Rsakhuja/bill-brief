@@ -42,4 +42,4 @@ def post_to_twitter(file_name, llm_response):
 
     print(f"\n\nThread tweeted successfully! {tweet_id}\n\n")
 
-    return 
+    return tweet_id

@@ -29,7 +29,7 @@ def split_text_for_threads(file_name, llm_response, max_length=280):
     """
     threads = []
 
-    bill_introduction = f"This analysis of 📄 BILL : {file_name} 📄 \n"
+    bill_introduction = f"This analysis of 📄 {file_name} 📄 "
     text = bill_introduction +  llm_response['summary'] + ' ✅ ' + llm_response['benefits'] + ' ⚠️ ' + llm_response['concerns']  
     words = text.split()
     current_part = ""

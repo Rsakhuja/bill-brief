@@ -32,10 +32,14 @@ def analysis():
     
     if file:
         llm_response = process_file_from_frontend(file)
-        
-        # TO POST TO TWITTER, UNCOMMENT BELOW LINE
+        post_to_twitter = input("Do you want to post to Twitter? (yes/no): ").strip().lower()
 
-        # x.post_to_twitter(file_name=file.filename, llm_response=llm_response)
+        if post_to_twitter == 'yes':
+            tweet_id = x.post_to_twitter(file_name=file.filename, llm_response=llm_response)
+            print(f"\n\nPosted to Twitter with tweet id {tweet_id}.\n\n")
+        else:
+            print("\n\nNot posted to Twitter. Simply will show to frontend \n\n")
+
         try:
             json_object = json.dumps(llm_response)
             return json_object

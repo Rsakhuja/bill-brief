@@ -5,3 +5,4 @@ backend/llm_implementation/data/*
 backend/llm_implementation/rag-indexes/*
 backend/llm_implementation/__pycache__/*
 */__pycache__/*
+*.pyc

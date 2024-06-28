@@ -36,7 +36,7 @@ def analyze_from_rag(file_name):
 
     storage_context = StorageContext.from_defaults(persist_dir=INDEX_DIRECTORY)
     index = load_index_from_storage(storage_context)
-    retriever = VectorIndexRetriever(index=index,similarity_top_k=3,)
+    retriever = VectorIndexRetriever(index=index,similarity_top_k=10,)
     response_synthesizer = get_response_synthesizer(response_mode="tree_summarize",)
 
     query_engine = RetrieverQueryEngine(

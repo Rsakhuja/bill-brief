@@ -20,7 +20,6 @@ def process_file_from_frontend(file):
     return data
 
 
-
 @app.route('/analysis', methods=['POST'])
 def analysis():
     if 'file' not in request.files:
